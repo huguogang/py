@@ -82,6 +82,34 @@ class LeetCode(unittest.TestCase):
                 bulbs[changes] ^= 1
         return reduce(lambda count, bulb: count + bulb, bulbs)
     
+    class NumArray(object):
+        def __init__(self, nums):
+            """
+            initialize your data structure here.
+            :type nums: List[int]
+            """ 
+            self.sums = [0]*(len(nums) + 1)
+            
+            for i in range(0, len(nums)):
+                self.sums[i + 1] = self.sums[i] + nums[i];
+
+        def sumRange(self, i, j):
+            """
+            sum of elements nums[i..j], inclusive.
+            :type i: int
+            :type j: int
+            :rtype: int
+            """
+            return self.sums[j + 1] - self.sums[i]
+        
+    def testNumArray(self):
+        print "test NumArray"
+        numArray = self.NumArray([1,2,3])
+        print numArray
+        
+        print numArray.sumRange(0, 1)
+        print numArray.sumRange(0, 2)
+
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()
