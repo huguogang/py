@@ -110,6 +110,68 @@ class LeetCode(unittest.TestCase):
         print numArray.sumRange(0, 1)
         print numArray.sumRange(0, 2)
 
+    # Definition for a binary tree node.
+    # class TreeNode(object):
+    #     def __init__(self, x):
+    #         self.val = x
+    #         self.left = None
+    #         self.right = None
+    
+    class Solution(object):
+        def invertTree(self, root):
+            """
+            :type root: TreeNode
+            :rtype: TreeNode
+            """
+            self.invertHelper(root)
+            return root
+            
+    def invertHelper(self, node):
+        if(node is None):
+            return
+        node.left, node.right = node.right, node.left
+        self.invertHelper(node.left)
+        self.invertHelper(node.right)
+            
+    def wordPattern(self, pattern, str):
+        """
+        :type pattern: str
+        :type str: str
+        :rtype: bool
+        """
+        letterToWord = {}
+        uniqueWords = set()
+        words = str.split(" ")
+        if(len(words) != len(pattern)):
+            return False;
+        for i in range(0, len(words)):
+            letter = pattern[i]
+            word = words[i]
+            if(letter in letterToWord.keys()):
+                if(letterToWord[letter] != word):
+                    return False
+                continue
+            else:
+                if(word in uniqueWords):
+                    return False 
+                letterToWord[letter] = word
+                uniqueWords.add(word)
+        return True               
+
+        
+    def testWordPattern(self):
+        pattern = "aabb"
+        str = "cat cat dog dog"
+        print self.wordPattern(pattern, str)
+        
+        str = "cat dog cat dog"
+        print self.wordPattern(pattern, str)
+        
+        pattern = "abba"
+        str = "dog dog dog dog"
+        print self.wordPattern(pattern, str)
+        
+        
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()

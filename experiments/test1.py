@@ -46,6 +46,8 @@ class Test1(unittest.TestCase):
         }
         key2["d"] = 5
         key2.pop("c")
+        # won't work, because key does not exist
+        # print key2["no such key"]
         print key2
         key2.pop((1, 'a'));
         # Error, cannot pop keys that does not exist
