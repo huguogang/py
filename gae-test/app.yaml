@@ -1,0 +1,52 @@
+# Google App Engine Application ID
+application: developertips-1
+module: py
+version: 2
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /helloworld
+  script: helloworld.app    # app variable in helloworld.py
+- url: /clock
+  script: clock.app         # app variable in clock.py
+- url: /clock/prefs
+  script: prefs.app
+  login: required
+- url: /
+  static_files: index.htm
+  upload: index.htm
+- url: /admin/
+  static_files: index.htm
+  upload: index.htm
+  login: admin
+- url: /authenticated/
+  static_files: index.htm
+  upload: index.htm
+  login: required
+
+# Python libraries. App Engine has these: Django, Endpoints, Jinja, MarkupSafe, NumPy, MySQLdb, ...
+libraries:
+  - name: jinja2
+    version: "2.6"
+  - name: markupsafe
+    version: "0.15"
+    
+# Custom environment variables
+env_variables:
+  # os.environ['DEVELOPERTIPS_CUSTOM_ENV']
+  DEVELOPERTIPS_CUSTOM_ENV: test
+  
+inbound_services:
+  # channel_presence, mail, xmpp_message, xmpp_presence, xmpp_subscribe, xmpp_error, warmup
+  # - warmup
+  
+# custom errors
+error_handlers:
+  # - error_code: over_quota | dos_api_denial | timeout
+  
+builtins:
+  - appstats: on    # AppStats at /_ah/stats
+  - remote_api: on  # Establishes the web service endpoint for remote API access
+  - deferred: on    # Setup task queue handler for deferred library
